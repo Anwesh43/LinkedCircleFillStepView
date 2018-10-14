@@ -168,4 +168,25 @@ class CircleFillStepView (ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : CircleFillStepView) {
+        val animator : Animator = Animator(view)
+        val cfs : CircleFillStep = CircleFillStep(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            cfs.draw(canvas, paint)
+            animator.animate {
+                cfs.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            cfs.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
