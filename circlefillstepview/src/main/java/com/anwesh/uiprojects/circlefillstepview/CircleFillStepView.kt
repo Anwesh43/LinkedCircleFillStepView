@@ -24,6 +24,10 @@ fun Canvas.drawCFSNode(i : Int, scale : Float, paint : Paint) {
     val r : Float = gap / 3
     save()
     translate(gap + i * gap, h/2)
+    paint.strokeWidth = Math.min(w, h) / 60
+    paint.style = Paint.Style.STROKE
+    drawCircle(0f, 0f, r, paint)
+    paint.style = Paint.Style.FILL 
     val path : Path = Path()
     path.addCircle(0f, 0f, r, Path.Direction.CCW)
     clipPath(path)
@@ -150,12 +154,12 @@ class CircleFillStepView (ctx : Context) : View(ctx) {
     }
 
     data class CircleFillStep(var i : Int) {
-
-        private var curr : CFSNode = CFSNode(0)
+        private var root : CFSNode = CFSNode(0)
+        private var curr : CFSNode = root
         private var dir : Int = 1
 
         fun draw(canvas : Canvas, paint : Paint) {
-            curr.draw(canvas, paint)
+            root.draw(canvas, paint)
         }
 
         fun update(cb : (Int, Float) -> Unit) {
