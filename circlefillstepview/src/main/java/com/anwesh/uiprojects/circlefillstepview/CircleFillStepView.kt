@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.circlefillstepview
  * Created by anweshmishra on 14/10/18.
  */
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.graphics.Canvas
@@ -189,6 +190,14 @@ class CircleFillStepView (ctx : Context) : View(ctx) {
             cfs.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : CircleFillStepView {
+            val view : CircleFillStepView = CircleFillStepView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
